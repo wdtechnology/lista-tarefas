@@ -1,0 +1,19 @@
+composer create-project --prefer-dist laravel/laravel app_controle_tarefas
+
+composer require laravel/ui:^3.2
+
+npm install
+npm run dev
+php artisan ui bootstrap --auth
+
+php artisan make:controller --resource TarefaController --model=Tarefa
+
+php artisan make:mail MensagemTesteMail --markdown email.mensagem-teste
+
+php artisan vendor:publish
+php artisan make:notification RedefinirSenhaNotification
+php artisan make:notification VerificarEmailNotification
+
+php artisan make:migration create_tarefas_table
+php artisan make:mail NovaTarefaMail --markdown email.nova-tarefa
+php artisan make:migration alter_table_tarefas_relacionamento_users
