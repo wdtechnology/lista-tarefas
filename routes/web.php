@@ -8,7 +8,13 @@ Route::get('/', function () {
 
 Auth::routes(['verify'=>true]);
 
-Route::resource('/tarefa',App\Http\Controllers\TarefaController::class);
+Route::get('tarefa/exportacao/{extensao}', [App\Http\Controllers\TarefaController::class,'exportacao'])
+    ->name('tarefa.exportacao');
+Route::get('tarefa/exportar', [App\Http\Controllers\TarefaController::class,'exportar'])
+    ->name('tarefa.exportar');
+
+Route::resource('/tarefa',App\Http\Controllers\TarefaController::class)
+    ->middleware('verified');
 
 Route::middleware(['auth','verified'])->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use Mail;
-use App\Mail\NovaTarefaMail;
+use PDF;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
+use App\Mail\NovaTarefaMail;
+use App\Exports\TarefaExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TarefaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -101,5 +109,24 @@ class TarefaController extends Controller
         }
         $tarefa->delete();
         return redirect()->route('tarefa.index');
+    }
+
+    public function exportacao($extensao) 
+    {
+        if (in_array($extensao, ['xlsx', 'csv', 'pdf'])) {
+            return Excel::download(new TarefaExport, 'lista_tarefas.'.$extensao);
+        }
+        return redirect()->route('tarefa.index');
+    }
+
+    public function exportar() 
+    {
+        $tarefas = auth()->user()->tarefas()->get();
+        $pdf = PDF::loadView('tarefa.pdf', ['tarefas' => $tarefas]);
+        //return $pdf->download('lista_de_tarefas.pdf');
+        $pdf->setPaper('a4','landscape');
+        //TIPO DE PAPEL: A4, LETTER
+        //ORIENTAÇÂO: LANDSCAPE (paisagem), portrait (retrato)
+        return $pdf->stream('lista_de_tarefas.pdf');
     }
 }

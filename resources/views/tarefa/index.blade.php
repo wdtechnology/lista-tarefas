@@ -5,8 +5,20 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('Adicionar Tarefa') }}
-                    <a href="{{ route('tarefa.create') }}" class="float-right">Novo</a>
+                    <div class="row">
+                        <div class="col-6">
+                            {{ __('Adicionar Tarefa') }}
+                        </div>
+                        <div class="col-6">
+                            <div class="float-right">
+                                <a href="{{ route('tarefa.create') }}" class="mr-3">Novo</a>
+                                <a href="{{ route('tarefa.exportacao',['extensao' => 'xlsx']) }}" class="mr-3">XLSX</a>
+                                <a href="{{ route('tarefa.exportacao',['extensao' => 'csv']) }}" class="mr-3">CSV</a>
+                                <a href="{{ route('tarefa.exportacao',['extensao' => 'pdf']) }}" class="mr-3">MPDF</a>
+                                <a href="{{ route('tarefa.exportar') }}" target="_blank">DOMPDF</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">  
                     <table class="table">
