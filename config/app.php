@@ -230,6 +230,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'admin' => \App\Http\Middleware\AdminAccess::class,
+        'client' => \App\Http\Middleware\ClientAccess::class,
     ],
 
 ];

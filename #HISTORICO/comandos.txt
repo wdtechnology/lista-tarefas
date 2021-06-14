@@ -45,3 +45,12 @@ Alias Facade:
 php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
 
 composer require dompdf/dompdf
+
+##++++++++++++++++EXTRA+++++++++++++++++##
+php artisan make:controller ChartJsController 
+##-------------------MIDDLEWARE------------------
+php artisan make:middleware AdminAccess
+php artisan make:middleware ClientAccess
+php artisan make:middleware AutenticacaoAccess
+
+
